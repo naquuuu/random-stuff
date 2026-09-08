@@ -6,20 +6,23 @@ Workspace mandiri untuk eksplorasi bebas, eksperimen acak, drafting ide kompetis
 
 ## 🌐 Live Prototype Demo & Repository
 * **Live Interactive Web Demo:** [temporary-flying-teal-nswc3ny.vercel.app](https://temporary-flying-teal-nswc3ny.vercel.app)
+* **Live Visual One-Pager / Slide Deck:** [temporary-flying-teal-nswc3ny.vercel.app/onepager.html](https://temporary-flying-teal-nswc3ny.vercel.app/onepager.html)
 * **GitHub Repository:** [github.com/naquuuu/random-stuff](https://github.com/naquuuu/random-stuff)
 
 ---
 
 ## 📂 Panduan Membaca Materi Kompetisi OJK
 
-Folder `ojk-agri-ideation/` memuat seluruh kajian strategis, arsitektur rekayasa, dan prompt kompetisi yang bebas dari jargon kosong (*no AI slop*):
+Folder `ojk-agri-ideation/` dan root repositori memuat seluruh materi kompetisi yang bebas dari jargon kosong (*no AI slop*):
 
 | Dokumen | Deskripsi Utama |
 | :--- | :--- |
+| **[`onepager.html`](file:///C:/work/random-stuff/onepager.html)** | **ONE-PAGER VISUAL PUBLIK (BISA DICETAK/PDF):** Infografis visual bergaya slide dengan analogi mobil rusak, 4 angka kunci (*Key Figures*), alur flowchart 4 langkah, dan penjelasan 4 agen dalam bahasa awam. |
+| **[`onepager.md`](file:///C:/work/random-stuff/onepager.md)** | **VERSI SLIDE DECK & MERMAID FLOWCHART:** Naskah presentasi 5 menit untuk dewan juri dengan diagram alir perbandingan sistem lama vs sistem baru. |
 | **[`deep-dive-conceptual-framework.md`](file:///C:/work/random-stuff/ojk-agri-ideation/deep-dive-conceptual-framework.md)** | **BACA INI DULU:** Bedah komprehensif akar masalah regulasi, jeda waktu 135 hari kematian pinjaman (*latency*), alur kerja multi-agent yang realistis, **5 titik kegagalan nyata di lapangan (*Failure Modes*)**, dan uji kelayakan (*feasibility check*). |
 | **[`problem-framing-and-analysis.md`](file:///C:/work/random-stuff/ojk-agri-ideation/problem-framing-and-analysis.md)** | Kajian industri: Studi kasus mengapa **Amartha** bertahan vs mengapa **TaniFund / iGrow** kolaps, serta 3 opsi pembingkaian masalah (*problem framing*) untuk dewan juri. |
 | **[`master-exploration-prompts.md`](file:///C:/work/random-stuff/ojk-agri-ideation/master-exploration-prompts.md)** | 5 Master Prompts siap pakai untuk di-*copy-paste* ke Gemini / ChatGPT untuk menyusun pitch deck, draf regulasi POJK 40/2024, dan simulasi tanya-jawab juri. |
-| **[`index.html`](file:///C:/work/random-stuff/index.html)** | Source code prototipe interaktif *Project SATRIA-Agri* (Sentinel-2 NDVI canvas, Chart.js kurva fenologi, dan auto-draft surat sanksi OJK). |
+| **[`index.html`](file:///C:/work/random-stuff/index.html)** | Source code prototipe interaktif *Project SATRIA-Agri* (Alur 3 langkah terpandu, perbandingan Titik Buta, Papan Bukti Satelit/Offtaker/FDC, dan generator surat resmi OJK). |
 
 ---
 

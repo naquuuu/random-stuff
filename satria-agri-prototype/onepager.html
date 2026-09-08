@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One-Pager: Menyelamatkan Fintech Pertanian dengan Satelit & AI</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #090D16;
+      color: #E2E8F0;
+    }
+    .gradient-heading {
+      background: linear-gradient(135deg, #38BDF8 0%, #818CF8 50%, #C084FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @media print {
+      body { background-color: white; color: black; }
+      .no-print { display: none !important; }
+      .print-card { border: 1px solid #ddd !important; background: #fff !important; color: #111 !important; }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen py-8 px-4 sm:px-8">
+
+  <!-- Top Action Nav -->
+  <div class="max-w-5xl mx-auto flex items-center justify-between pb-6 border-b border-slate-800 no-print">
+    <a href="./index.html" class="text-xs text-sky-400 hover:text-sky-300 font-bold flex items-center gap-1.5 transition">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      <span>Kembali ke Prototipe Utama</span>
+    </a>
+
+    <div class="flex items-center gap-3">
+      <button onclick="window.print()" class="text-xs bg-slate-800 hover:bg-slate-700 text-white px-3.5 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 shadow">
+        <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+        <span>Cetak / Simpan PDF</span>
+      </button>
+      <span class="text-[11px] font-mono bg-purple-950/80 text-purple-300 border border-purple-800 px-2.5 py-1 rounded-full font-bold">
+        One-Pager Slide Ringkas
+      </span>
+    </div>
+  </div>
+
+  <!-- Main Document Container -->
+  <main class="max-w-5xl mx-auto mt-8 space-y-10">
+
+    <!-- Header / Title Section -->
+    <header class="text-center space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950/60 border border-sky-800/80 text-sky-400 text-xs font-mono font-bold">
+        <span>🇮🇩 INOVASI REGULASI OJK</span> • <span>PROJECT SATRIA-Agri</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+        Mengapa Fintech Pertanian Sering Kolaps?<br>
+        <span class="gradient-heading">Dan Bagaimana Satelit & AI Menyelamatkannya.</span>
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        Panduan ringkas dan visual untuk memahami akar masalah gagal bayar pinjol pertanian (seperti kasus TaniFund & iGrow) dan bagaimana teknologi <strong>Agentic AI</strong> melindungi uang masyarakat.
+      </p>
+    </header>
+
+    <!-- The Everyday Metaphor (Analogi Sederhana) -->
+    <section class="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40 border border-slate-800 rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+      <div class="max-w-3xl space-y-3">
+        <div class="flex items-center gap-2 text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">
+          <i data-lucide="lightbulb" class="w-4 h-4"></i>
+          <span>Analogi Sederhana: Memeriksa Mobil Rusak</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black text-white">
+          "OJK memeriksa buku servis di atas meja, padahal mesin mobil di luar sudah meledak terbakar."
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          Selama ini, pengawas keuangan hanya mengecek <strong>Laporan Keuangan PT Penyelenggara</strong> (apakah modalnya cukup Rp 12,5 M). Di atas kertas, perusahaannya tampak sehat. Namun di sawah, tanaman petani sudah lama mati akibat kekeringan, dan uang pinjaman ratusan miliar rupiah milik masyarakat sudah habis tanpa ada yang tahu.
+        </p>
+      </div>
+    </section>
+
+    <!-- Visual Figures (4 Key Numbers) -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
+        <div class="text-3xl sm:text-4xl font-black text-rose-400 font-mono">135 Hari</div>
+        <div class="text-xs font-bold text-slate-200">Jeda Kebutaan OJK</div>
+        <div class="text-[11px] text-slate-400">Jarak waktu antara tanaman mati di sawah hingga baru tercatat macet di OJK.</div>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
+        <div class="text-3xl sm:text-4xl font-black text-sky-400 font-mono">10 Meter</div>
+        <div class="text-xs font-bold text-slate-200">Ketajaman Satelit</div>
+        <div class="text-[11px] text-slate-400">Satelit Sentinel-2 memantau petak sawah dari orbit luar angkasa setiap 5 hari.</div>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
+        <div class="text-3xl sm:text-4xl font-black text-purple-400 font-mono">H-60 Hari</div>
+        <div class="text-xs font-bold text-slate-200">Peringatan Dini</div>
+        <div class="text-[11px] text-slate-400">AI mendeteksi gagal panen 2 bulan sebelum tanggal jatuh tempo pinjaman.</div>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
+        <div class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono">100%</div>
+        <div class="text-xs font-bold text-slate-200">Uang Lender Terjaga</div>
+        <div class="text-[11px] text-slate-400">Mencegah pinjaman baru tersedot ke dalam skema gali lubang tutup lubang.</div>
+      </div>
+    </section>
+
+    <!-- Visual Flowchart (Alur Masalah vs Solusi Baru) -->
+    <section class="space-y-4">
+      <div class="text-center space-y-1">
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400">Infografis Alur Perjalanan</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Bagaimana Bencana Terjadi vs Cara AI Mencegahnya</h2>
+      </div>
+
+      <!-- 4-Step Flow Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+        
+        <!-- Step 1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-slate-800 font-mono font-bold text-xs flex items-center justify-center text-slate-300">1</span>
+            <span class="text-[10px] font-mono text-slate-500">Bulan ke-1</span>
+          </div>
+          <div class="space-y-1">
+            <div class="text-base font-bold text-white flex items-center gap-1.5">
+              <span>🌱 Akad Pinjaman</span>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Masyarakat (*lender*) mendanai proyek sawah jagung bertenor 90 hari lewat aplikasi fintech.
+            </p>
+          </div>
+          <div class="text-[11px] text-emerald-400 font-medium">Status Awal: Normal</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-slate-900 border border-rose-900/60 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-rose-950 font-mono font-bold text-xs flex items-center justify-center text-rose-400">2</span>
+            <span class="text-[10px] font-mono text-rose-400">Hari ke-45</span>
+          </div>
+          <div class="space-y-1">
+            <div class="text-base font-bold text-rose-300 flex items-center gap-1.5">
+              <span>☀️ Hantaman Cuaca</span>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Kekeringan El Niño melanda. Tanaman mati layu. Di dunia nyata, <strong>pinjaman sudah mati</strong>.
+            </p>
+          </div>
+          <div class="text-[11px] text-rose-400 font-bold">Pengawas Lama: Belum Tahu!</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-slate-900 border border-amber-900/60 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-amber-950 font-mono font-bold text-xs flex items-center justify-center text-amber-400">3</span>
+            <span class="text-[10px] font-mono text-amber-400">Hari ke-90</span>
+          </div>
+          <div class="space-y-1">
+            <div class="text-base font-bold text-amber-300 flex items-center gap-1.5">
+              <span>🔄 Gali Lubang</span>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Fintech menutupi kegagalan dengan membuka proyek baru (*evergreening*) agar TKB tetap manis 97%.
+            </p>
+          </div>
+          <div class="text-[11px] text-amber-400 font-bold">Ilusi Kesehatan Finansial</div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-gradient-to-b from-sky-950/40 to-slate-900 border border-sky-500/50 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative shadow-lg shadow-sky-950/50">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-sky-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">4</span>
+            <span class="text-[10px] font-mono text-sky-400 font-bold">SOLUSI AI</span>
+          </div>
+          <div class="space-y-1">
+            <div class="text-base font-bold text-sky-300 flex items-center gap-1.5">
+              <span>🛰️ Intervensi Cepat</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Satelit melihat daun mati di Hari 45. AI membekukan izin galang dana baru sebelum masyarakat dirugikan.
+            </p>
+          </div>
+          <div class="text-[11px] text-sky-400 font-bold">Dana Masyarakat Selamat!</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- The 4 AI Agents Explained for Normal People (Siapa Saja 4 Agen Ini?) -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-purple-400">Tim Detektif Digital OJK</span>
+        <h2 class="text-xl sm:text-2xl font-black text-white">
+          4 Asisten AI Otonom yang Bekerja 24 Jam Tanpa Henti
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400">
+          Alih-alih mengirim puluhan auditor keliling ratusan pulau, OJK mengerahkan 4 agen cerdas khusus:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Agent 1 -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-sky-500/30 space-y-2">
+          <div class="w-9 h-9 rounded-xl bg-sky-950 text-sky-400 flex items-center justify-center text-lg">
+            🛰️
+          </div>
+          <h3 class="text-sm font-bold text-white">1. Si Mata Elang</h3>
+          <span class="text-[10px] font-mono text-sky-400 block font-bold">Agen Satelit & Cuaca</span>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Memotret sawah dari antariksa. Mengetahui secara pasti apakah padinya benar-benar ditanam, sedang layu kekeringan, atau kebunnya fiktif (*bohong*).
+          </p>
+        </div>
+
+        <!-- Agent 2 -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-2">
+          <div class="w-9 h-9 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center text-lg">
+            🌾
+          </div>
+          <h3 class="text-sm font-bold text-white">2. Si Ahli Pasar</h3>
+          <span class="text-[10px] font-mono text-amber-400 block font-bold">Agen Rantai Pasok</span>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Mengecek harga pangan di pasar dan pabrik penampung (*offtaker*). Mengetahui apakah hasil panen petani laku dijual atau dibeli dengan harga jatuh.
+          </p>
+        </div>
+
+        <!-- Agent 3 -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-rose-500/30 space-y-2">
+          <div class="w-9 h-9 rounded-xl bg-rose-950 text-rose-400 flex items-center justify-center text-lg">
+            🔍
+          </div>
+          <h3 class="text-sm font-bold text-white">3. Si Detektif Rekening</h3>
+          <span class="text-[10px] font-mono text-rose-400 block font-bold">Agen Forensik Aliran Dana</span>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Melacak aliran uang di database pinjol. Membongkar trik licik saat uang lender baru diam-diam dipakai membayar utang macet proyek lama.
+          </p>
+        </div>
+
+        <!-- Agent 4 -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-purple-500/30 space-y-2">
+          <div class="w-9 h-9 rounded-xl bg-purple-950 text-purple-400 flex items-center justify-center text-lg">
+            ⚖️
+          </div>
+          <h3 class="text-sm font-bold text-white">4. Si Jaksa Pengawas</h3>
+          <span class="text-[10px] font-mono text-purple-400 block font-bold">Agen Tindakan Regulasi</span>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Menggabungkan semua bukti dan otomatis mengetik draf surat peringatan pembinaan OJK sesuai pasal hukum untuk disahkan pimpinan.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Executive Conclusion Card -->
+    <section class="p-6 sm:p-8 rounded-3xl bg-gradient-to-tr from-sky-950/60 via-slate-900 to-purple-950/40 border border-slate-700 text-center space-y-3">
+      <h3 class="text-lg sm:text-xl font-bold text-white">
+        Kesimpulan untuk Pemimpin & Pengambil Keputusan:
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        Inovasi ini tidak meminta OJK mengeluarkan triliunan rupiah untuk meluncurkan satelit baru. Seluruh data satelit (Sentinel-2) gratis disediakan oleh lembaga antariksa dunia. Yang dibangun OJK adalah <strong>kecerdasan otonom (SupTech)</strong> yang menghubungkan titik koordinat sawah dengan perlindungan konsumen keuangan Indonesia.
+      </p>
+      <div class="pt-2">
+        <a href="./index.html" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs px-5 py-2.5 rounded-xl transition shadow-lg shadow-sky-500/20">
+          <span>Uji Coba Prototipe Interaktif (Klik di Sini)</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-5xl mx-auto mt-12 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
+    <p>Project SATRIA-Agri • One-Pager Visualisasi Publik & Eksekutif • 2026</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

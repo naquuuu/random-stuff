@@ -136,16 +136,28 @@
       </button>
     </div>
 
-    <!-- Guided Presentation Mode Button -->
-    <button 
-      onclick="toggleTourMode()" 
-      id="tourBtn"
-      class="bg-gradient-to-r from-purple-600 to-sky-600 hover:brightness-110 text-white text-xs font-semibold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-md shadow-purple-900/30 transition active:scale-95"
-    >
-      <i data-lucide="play-circle" class="w-4 h-4"></i>
-      <span class="hidden sm:inline">Mulai Demo Presentasi</span>
-      <span class="sm:hidden">Demo</span>
-    </button>
+    <!-- Right Actions -->
+    <div class="flex items-center space-x-2">
+      <!-- One-Pager Link -->
+      <a 
+        href="./onepager.html" 
+        class="bg-brand-card hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-xl border border-brand-border flex items-center gap-1.5 transition shadow"
+      >
+        <i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i>
+        <span class="hidden md:inline">One-Pager / Slide</span>
+      </a>
+
+      <!-- Guided Presentation Mode Button -->
+      <button 
+        onclick="toggleTourMode()" 
+        id="tourBtn"
+        class="bg-gradient-to-r from-purple-600 to-sky-600 hover:brightness-110 text-white text-xs font-semibold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-md shadow-purple-900/30 transition active:scale-95"
+      >
+        <i data-lucide="play-circle" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Mulai Demo Presentasi</span>
+        <span class="sm:hidden">Demo</span>
+      </button>
+    </div>
   </header>
 
   <!-- Interactive Content Stages (Single-focus container) -->
