@@ -3,286 +3,549 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>One-Pager: Menyelamatkan Fintech Pertanian dengan Satelit & AI</title>
+  <title>Project SATRIA-Agri — Visual Flowchart & Architecture Infographic</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #090D16;
+      background-color: #070B14;
       color: #E2E8F0;
     }
-    .gradient-heading {
+    .gradient-title {
       background: linear-gradient(135deg, #38BDF8 0%, #818CF8 50%, #C084FC 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+    
+    /* Flowing animated dash lines */
+    @keyframes flowDash {
+      to { stroke-dashoffset: -40; }
+    }
+    .flow-line {
+      stroke-dasharray: 6, 6;
+      animation: flowDash 1.5s linear infinite;
+    }
+
+    /* Node pulse */
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4)); }
+      50% { transform: scale(1.03); filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.7)); }
+    }
+    .node-pulse {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
     @media print {
-      body { background-color: white; color: black; }
+      body { background-color: #fff !important; color: #111 !important; }
       .no-print { display: none !important; }
-      .print-card { border: 1px solid #ddd !important; background: #fff !important; color: #111 !important; }
+      .print-box { border: 1px solid #ccc !important; background: #fff !important; color: #111 !important; }
     }
   </style>
 </head>
 
-<body class="min-h-screen py-8 px-4 sm:px-8">
+<body class="min-h-screen py-6 px-4 sm:px-8 flex flex-col justify-between select-none">
 
-  <!-- Top Action Nav -->
-  <div class="max-w-5xl mx-auto flex items-center justify-between pb-6 border-b border-slate-800 no-print">
-    <a href="./index.html" class="text-xs text-sky-400 hover:text-sky-300 font-bold flex items-center gap-1.5 transition">
-      <i data-lucide="arrow-left" class="w-4 h-4"></i>
-      <span>Kembali ke Prototipe Utama</span>
-    </a>
+  <!-- Top Action Navigation Bar -->
+  <nav class="max-w-6xl mx-auto w-full flex items-center justify-between pb-4 border-b border-slate-800/80 no-print">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-rose-600 to-amber-500 flex items-center justify-center font-black text-white text-xs">
+        OJK
+      </div>
+      <div>
+        <span class="text-sm font-bold text-white tracking-tight">Project SATRIA-Agri</span>
+        <span class="text-xs text-slate-400 block sm:inline sm:ml-2 font-mono">Infografis Visual & Diagram Alur</span>
+      </div>
+    </div>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <a href="./index.html" class="text-xs text-sky-400 hover:text-sky-300 font-bold px-3 py-1.5 rounded-lg hover:bg-slate-900 border border-transparent hover:border-slate-800 transition flex items-center gap-1.5">
+        <i data-lucide="layout" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Buka Prototipe Interaktif</span>
+      </a>
+
       <button onclick="window.print()" class="text-xs bg-slate-800 hover:bg-slate-700 text-white px-3.5 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5 shadow">
         <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-        <span>Cetak / Simpan PDF</span>
+        <span>PDF / Cetak</span>
       </button>
-      <span class="text-[11px] font-mono bg-purple-950/80 text-purple-300 border border-purple-800 px-2.5 py-1 rounded-full font-bold">
-        One-Pager Slide Ringkas
-      </span>
     </div>
-  </div>
+  </nav>
 
-  <!-- Main Document Container -->
-  <main class="max-w-5xl mx-auto mt-8 space-y-10">
+  <!-- Main Infographic Content Container -->
+  <main class="max-w-6xl mx-auto w-full mt-6 space-y-12">
 
-    <!-- Header / Title Section -->
-    <header class="text-center space-y-3">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950/60 border border-sky-800/80 text-sky-400 text-xs font-mono font-bold">
-        <span>🇮🇩 INOVASI REGULASI OJK</span> • <span>PROJECT SATRIA-Agri</span>
+    <!-- Hero Headline (Punchy & Minimal) -->
+    <header class="text-center space-y-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950/60 border border-sky-800/70 text-sky-400 text-xs font-mono font-bold">
+        <span>💡 INFOGRAFIS VISUAL EKSEKUTIF</span>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
-        Mengapa Fintech Pertanian Sering Kolaps?<br>
-        <span class="gradient-heading">Dan Bagaimana Satelit & AI Menyelamatkannya.</span>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
+        Titik Buta Pengawasan Fintech Pertanian<br>
+        <span class="gradient-title">& Solusi Autonomous Multi-Agent AI</span>
       </h1>
-      <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-        Panduan ringkas dan visual untuk memahami akar masalah gagal bayar pinjol pertanian (seperti kasus TaniFund & iGrow) dan bagaimana teknologi <strong>Agentic AI</strong> melindungi uang masyarakat.
+      <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
+        Membedah secara visual mengapa pengawasan lama gagal mendeteksi kredit macet di sawah dan bagaimana satelit mengintervensi sebelum krisis meledak.
       </p>
     </header>
 
-    <!-- The Everyday Metaphor (Analogi Sederhana) -->
-    <section class="bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40 border border-slate-800 rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-      <div class="max-w-3xl space-y-3">
-        <div class="flex items-center gap-2 text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">
-          <i data-lucide="lightbulb" class="w-4 h-4"></i>
-          <span>Analogi Sederhana: Memeriksa Mobil Rusak</span>
-        </div>
-        <h2 class="text-xl sm:text-2xl font-black text-white">
-          "OJK memeriksa buku servis di atas meja, padahal mesin mobil di luar sudah meledak terbakar."
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          Selama ini, pengawas keuangan hanya mengecek <strong>Laporan Keuangan PT Penyelenggara</strong> (apakah modalnya cukup Rp 12,5 M). Di atas kertas, perusahaannya tampak sehat. Namun di sawah, tanaman petani sudah lama mati akibat kekeringan, dan uang pinjaman ratusan miliar rupiah milik masyarakat sudah habis tanpa ada yang tahu.
-        </p>
-      </div>
-    </section>
 
-    <!-- Visual Figures (4 Key Numbers) -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
-        <div class="text-3xl sm:text-4xl font-black text-rose-400 font-mono">135 Hari</div>
-        <div class="text-xs font-bold text-slate-200">Jeda Kebutaan OJK</div>
-        <div class="text-[11px] text-slate-400">Jarak waktu antara tanaman mati di sawah hingga baru tercatat macet di OJK.</div>
-      </div>
-
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
-        <div class="text-3xl sm:text-4xl font-black text-sky-400 font-mono">10 Meter</div>
-        <div class="text-xs font-bold text-slate-200">Ketajaman Satelit</div>
-        <div class="text-[11px] text-slate-400">Satelit Sentinel-2 memantau petak sawah dari orbit luar angkasa setiap 5 hari.</div>
-      </div>
-
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
-        <div class="text-3xl sm:text-4xl font-black text-purple-400 font-mono">H-60 Hari</div>
-        <div class="text-xs font-bold text-slate-200">Peringatan Dini</div>
-        <div class="text-[11px] text-slate-400">AI mendeteksi gagal panen 2 bulan sebelum tanggal jatuh tempo pinjaman.</div>
-      </div>
-
-      <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-center space-y-1">
-        <div class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono">100%</div>
-        <div class="text-xs font-bold text-slate-200">Uang Lender Terjaga</div>
-        <div class="text-[11px] text-slate-400">Mencegah pinjaman baru tersedot ke dalam skema gali lubang tutup lubang.</div>
-      </div>
-    </section>
-
-    <!-- Visual Flowchart (Alur Masalah vs Solusi Baru) -->
+    <!-- ======================================================= -->
+    <!-- BAGIAN 1: STORYBOARD KRONOLOGIS 4 BABAK (THE TIMELINE) -->
+    <!-- ======================================================= -->
     <section class="space-y-4">
-      <div class="text-center space-y-1">
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400">Infografis Alur Perjalanan</span>
-        <h2 class="text-2xl sm:text-3xl font-black text-white">Bagaimana Bencana Terjadi vs Cara AI Mencegahnya</h2>
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-rose-500/20 text-rose-400 flex items-center justify-center text-xs font-bold font-mono">1</span>
+          <h2 class="text-base sm:text-lg font-bold text-white">Anatomi Bencana: Mengapa Sistem Lama Buta Selama 135 Hari?</h2>
+        </div>
+        <span class="text-xs font-mono text-rose-400 font-bold bg-rose-950/80 px-2 py-0.5 rounded border border-rose-800">
+          Kasus TaniFund / iGrow
+        </span>
       </div>
 
-      <!-- 4-Step Flow Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+      <!-- 4 Visual Cards Connected by Direction Arrows -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
         
-        <!-- Step 1 -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative">
+        <!-- Babak 1 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between space-y-3 relative group hover:border-slate-700 transition">
           <div class="flex items-center justify-between">
-            <span class="w-7 h-7 rounded-full bg-slate-800 font-mono font-bold text-xs flex items-center justify-center text-slate-300">1</span>
-            <span class="text-[10px] font-mono text-slate-500">Bulan ke-1</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300">BABAK 1 • HARI 1</span>
+            <div class="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-800 text-emerald-400 flex items-center justify-center text-base">🌱</div>
           </div>
-          <div class="space-y-1">
-            <div class="text-base font-bold text-white flex items-center gap-1.5">
-              <span>🌱 Akad Pinjaman</span>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Masyarakat (*lender*) mendanai proyek sawah jagung bertenor 90 hari lewat aplikasi fintech.
+          <div>
+            <h3 class="text-base font-bold text-white">Akad & Pencairan</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Petani tanam benih. 340 Lender menyetor <strong>Rp 2,4 Miliar</strong> modal via aplikasi fintech (tenor 90 hari).
             </p>
           </div>
-          <div class="text-[11px] text-emerald-400 font-medium">Status Awal: Normal</div>
+          <div class="pt-2 border-t border-slate-800/80 text-[11px] font-mono text-emerald-400 flex items-center gap-1">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> Laporan: Lancar 100%
+          </div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="bg-slate-900 border border-rose-900/60 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative">
+        <!-- Babak 2 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-rose-900/50 flex flex-col justify-between space-y-3 relative group hover:border-rose-700 transition">
           <div class="flex items-center justify-between">
-            <span class="w-7 h-7 rounded-full bg-rose-950 font-mono font-bold text-xs flex items-center justify-center text-rose-400">2</span>
-            <span class="text-[10px] font-mono text-rose-400">Hari ke-45</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800">BABAK 2 • HARI 45</span>
+            <div class="w-8 h-8 rounded-lg bg-rose-950/60 border border-rose-800 text-rose-400 flex items-center justify-center text-base">☀️</div>
           </div>
-          <div class="space-y-1">
-            <div class="text-base font-bold text-rose-300 flex items-center gap-1.5">
-              <span>☀️ Hantaman Cuaca</span>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Kekeringan El Niño melanda. Tanaman mati layu. Di dunia nyata, <strong>pinjaman sudah mati</strong>.
+          <div>
+            <h3 class="text-base font-bold text-rose-300">El Niño Hantam Sawah</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Kekeringan ekstrem 28 hari. Tanaman mati 100%. <strong>Di dunia fisik, pinjaman sudah mati di hari ke-45</strong>.
             </p>
           </div>
-          <div class="text-[11px] text-rose-400 font-bold">Pengawas Lama: Belum Tahu!</div>
+          <div class="pt-2 border-t border-slate-800/80 text-[11px] font-mono text-rose-400 font-bold flex items-center gap-1">
+            <i data-lucide="eye-off" class="w-3.5 h-3.5"></i> OJK: Buta Total!
+          </div>
         </div>
 
-        <!-- Step 3 -->
-        <div class="bg-slate-900 border border-amber-900/60 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative">
+        <!-- Babak 3 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-amber-900/50 flex flex-col justify-between space-y-3 relative group hover:border-amber-700 transition">
           <div class="flex items-center justify-between">
-            <span class="w-7 h-7 rounded-full bg-amber-950 font-mono font-bold text-xs flex items-center justify-center text-amber-400">3</span>
-            <span class="text-[10px] font-mono text-amber-400">Hari ke-90</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950 text-amber-400 border border-amber-800">BABAK 3 • HARI 90</span>
+            <div class="w-8 h-8 rounded-lg bg-amber-950/60 border border-amber-800 text-amber-400 flex items-center justify-center text-base">🔄</div>
           </div>
-          <div class="space-y-1">
-            <div class="text-base font-bold text-amber-300 flex items-center gap-1.5">
-              <span>🔄 Gali Lubang</span>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Fintech menutupi kegagalan dengan membuka proyek baru (*evergreening*) agar TKB tetap manis 97%.
+          <div>
+            <h3 class="text-base font-bold text-amber-300">Gali Lubang (Ponzi)</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Jatuh tempo. Fintech membuka kampanye baru fiktif untuk membayar pinjaman lama agar TKB90 tetap terlihat 97%!
             </p>
           </div>
-          <div class="text-[11px] text-amber-400 font-bold">Ilusi Kesehatan Finansial</div>
+          <div class="pt-2 border-t border-slate-800/80 text-[11px] font-mono text-amber-400 flex items-center gap-1">
+            <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> TKB90 Palsu 97,4%
+          </div>
         </div>
 
-        <!-- Step 4 -->
-        <div class="bg-gradient-to-b from-sky-950/40 to-slate-900 border border-sky-500/50 rounded-2xl p-5 space-y-2 flex flex-col justify-between relative shadow-lg shadow-sky-950/50">
+        <!-- Babak 4 -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-purple-900/50 flex flex-col justify-between space-y-3 relative group hover:border-purple-700 transition">
           <div class="flex items-center justify-between">
-            <span class="w-7 h-7 rounded-full bg-sky-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center">4</span>
-            <span class="text-[10px] font-mono text-sky-400 font-bold">SOLUSI AI</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-950 text-purple-400 border border-purple-800">BABAK 4 • HARI 180</span>
+            <div class="w-8 h-8 rounded-lg bg-purple-950/60 border border-purple-800 text-purple-400 flex items-center justify-center text-base">💥</div>
           </div>
-          <div class="space-y-1">
-            <div class="text-base font-bold text-sky-300 flex items-center gap-1.5">
-              <span>🛰️ Intervensi Cepat</span>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Satelit melihat daun mati di Hari 45. AI membekukan izin galang dana baru sebelum masyarakat dirugikan.
+          <div>
+            <h3 class="text-base font-bold text-purple-300">Skema Meledak</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Dana habis. TWP90 melonjak. OJK mencabut izin usaha, ratusan miliar dana lender masyarakat hangus total.
             </p>
           </div>
-          <div class="text-[11px] text-sky-400 font-bold">Dana Masyarakat Selamat!</div>
+          <div class="pt-2 border-t border-slate-800/80 text-[11px] font-mono text-purple-400 font-bold flex items-center gap-1">
+            <i data-lucide="x-circle" class="w-3.5 h-3.5"></i> Terlambat 135 Hari!
+          </div>
+        </div>
+
+      </div>
+
+      <!-- The 135-Day Blind Spot Visual Bar -->
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-rose-950/40 via-amber-950/30 to-purple-950/40 border border-rose-900/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-rose-900/60 text-rose-300 flex items-center justify-center font-bold text-lg shrink-0">
+            ⏳
+          </div>
+          <div>
+            <span class="font-bold text-rose-300 text-sm">Jurang Kebutaan Regulasi: 135 Hari Keterlambatan</span>
+            <p class="text-slate-400 text-[11px] mt-0.5">
+              Dari Hari ke-45 (tanaman mati) sampai Hari ke-180 (resmi dilaporkan macet ke OJK), ada jeda 135 hari di mana fintech leluasa memutar uang masyarakat.
+            </p>
+          </div>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="font-mono text-rose-400 font-extrabold text-lg sm:text-xl">135 HARI LAG</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- BAGIAN 2: INTERACTIVE SVG FLOWCHART (ALUR LAMA VS ALUR BARU) -->
+    <!-- ============================================================== -->
+    <section class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-2 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-sky-500/20 text-sky-400 flex items-center justify-center text-xs font-bold font-mono">2</span>
+          <h2 class="text-base sm:text-lg font-bold text-white">Perbandingan Visual Interaktif: Alur Lama vs Alur Baru AI</h2>
+        </div>
+
+        <!-- Interactive Flow Toggle -->
+        <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+          <button 
+            onclick="switchFlow('old')" 
+            id="flowBtnOld"
+            class="px-3.5 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition"
+          >
+            ❌ Alur Lama (Bencana TaniFund)
+          </button>
+          <button 
+            onclick="switchFlow('new')" 
+            id="flowBtnNew"
+            class="px-3.5 py-1.5 rounded-lg font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 transition shadow"
+          >
+            ✅ Alur Baru (SATRIA-Agri AI)
+          </button>
+        </div>
+      </div>
+
+      <!-- Diagram Flow Canvas Box -->
+      <div class="relative bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 overflow-hidden min-h-[420px] flex flex-col justify-between">
+        
+        <!-- ======================= -->
+        <!-- VIEW 1: ALUR LAMA (RED) -->
+        <!-- ======================= -->
+        <div id="flowOldView" class="hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-rose-400 bg-rose-950/80 border border-rose-800 px-3 py-1 rounded-full">
+              SISTEM KONVENSIONAL • BERAKHIR PADA GAGAL BAYAR & PENCABUTAN IZIN
+            </span>
+            <span class="text-xs text-slate-500 font-mono">Status: Pasif & Post-Mortem</span>
+          </div>
+
+          <!-- Flowchart Graphic Nodes -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+            
+            <!-- Node 1 -->
+            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2 text-center">
+              <div class="text-2xl">🚜</div>
+              <div class="text-xs font-bold text-white">Sawah Gagal Panen</div>
+              <div class="text-[11px] text-rose-400 font-mono">Hari 45: Padi Mati Total</div>
+              <div class="text-[10px] text-slate-500 leading-tight">Tidak ada sensor yang memverifikasi kondisi lapangan fisik.</div>
+            </div>
+
+            <!-- Node 2 -->
+            <div class="p-4 rounded-2xl bg-slate-900 border border-amber-900/60 space-y-2 text-center relative">
+              <div class="text-2xl">🔄</div>
+              <div class="text-xs font-bold text-amber-300">Skema Evergreening</div>
+              <div class="text-[11px] text-amber-400 font-mono">Hari 90: Putar Uang Baru</div>
+              <div class="text-[10px] text-slate-400 leading-tight">Fintech membuka pinjaman baru untuk membayar pinjaman lama yang macet.</div>
+            </div>
+
+            <!-- Node 3 -->
+            <div class="p-4 rounded-2xl bg-slate-900 border border-rose-900/60 space-y-2 text-center">
+              <div class="text-2xl">🏛️</div>
+              <div class="text-xs font-bold text-slate-300">Pengawas OJK Konvensional</div>
+              <div class="text-[11px] text-emerald-400 font-mono">Ekuitas PT Rp 14,8 M (✓ Lolos)</div>
+              <div class="text-[10px] text-slate-400 leading-tight">Pengawas hanya mengecek neraca PT per kuartal. Tampak patuh!</div>
+            </div>
+
+          </div>
+
+          <!-- The Tragedy Result Banner -->
+          <div class="p-4 rounded-2xl bg-rose-950/30 border border-rose-900/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2 text-rose-300">
+              <i data-lucide="x-octagon" class="w-5 h-5 text-rose-400 shrink-0"></i>
+              <span><strong>Hasil Akhir:</strong> Dana lender Rp 2,4 Miliar hangus, publik demo di OJK, izin usaha terpaksa dicabut.</span>
+            </div>
+            <button onclick="switchFlow('new')" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shrink-0">
+              Lihat Solusi AI &rarr;
+            </button>
+          </div>
+        </div>
+
+
+        <!-- ======================= -->
+        <!-- VIEW 2: ALUR BARU (SKY) -->
+        <!-- ======================= -->
+        <div id="flowNewView" class="space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-sky-400 bg-sky-950/80 border border-sky-800 px-3 py-1 rounded-full">
+              SISTEM SATRIA-Agri • PENGAWASAN OTONOM DINI BERBASIS GROUND-TRUTH
+            </span>
+            <span class="text-xs text-sky-400 font-mono font-bold">Status: Aktif & Proaktif H-60</span>
+          </div>
+
+          <!-- Flowchart Graphic Nodes (With Satellite Intervention) -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+            
+            <!-- Node A: Satelit -->
+            <div class="p-4 rounded-2xl bg-sky-950/30 border border-sky-500/40 space-y-2 text-center node-pulse">
+              <div class="text-2xl">🛰️</div>
+              <div class="text-xs font-bold text-sky-300">1. Sentinel-2 Orbit</div>
+              <div class="text-[11px] text-sky-400 font-mono">Hari 45: Scan NDVI 0.18</div>
+              <div class="text-[10px] text-slate-300 leading-tight">Satelit melihat daun jagung layu dari antariksa secara otomatis.</div>
+            </div>
+
+            <!-- Node B: AI Forensik -->
+            <div class="p-4 rounded-2xl bg-slate-900 border border-purple-500/40 space-y-2 text-center">
+              <div class="text-2xl">🔍</div>
+              <div class="text-xs font-bold text-purple-300">2. AI FDC Forensik</div>
+              <div class="text-[11px] text-purple-400 font-mono">Hari 46: Cegat Ponzi</div>
+              <div class="text-[10px] text-slate-400 leading-tight">AI memblokir skema gali lubang tutup utang di rekening penampung.</div>
+            </div>
+
+            <!-- Node C: Supervisory Copilot -->
+            <div class="p-4 rounded-2xl bg-slate-900 border border-emerald-500/40 space-y-2 text-center">
+              <div class="text-2xl">⚖️</div>
+              <div class="text-xs font-bold text-emerald-300">3. Copilot POJK</div>
+              <div class="text-[11px] text-emerald-400 font-mono">Hari 47: Ketik Surat Sanksi</div>
+              <div class="text-[10px] text-slate-400 leading-tight">Otomatis merumuskan pasal pelanggaran POJK 40/2024 untuk pengawas.</div>
+            </div>
+
+            <!-- Node D: Sanksi Cepat OJK -->
+            <div class="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500 space-y-2 text-center shadow-lg shadow-emerald-950">
+              <div class="text-2xl">🛡️</div>
+              <div class="text-xs font-bold text-white">4. Moratorium OJK</div>
+              <div class="text-[11px] text-emerald-400 font-mono">Hari 48: Proyek Dibekukan</div>
+              <div class="text-[10px] text-slate-300 leading-tight">Kampanye ditutup sebelum lender baru menyetor uang tabungan mereka.</div>
+            </div>
+
+          </div>
+
+          <!-- The Victory Result Banner -->
+          <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-900/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2 text-emerald-300">
+              <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+              <span><strong>Hasil Akhir:</strong> Rp 2,4 Miliar dana lender terselamatkan, krisis dicegah 60 hari sebelum tanggal jatuh tempo.</span>
+            </div>
+            <a href="./index.html" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold px-3.5 py-1.5 rounded-lg text-xs transition shrink-0 flex items-center gap-1">
+              <span>Uji Coba Prototipe</span> &rarr;
+            </a>
+          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- The 4 AI Agents Explained for Normal People (Siapa Saja 4 Agen Ini?) -->
-    <section class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
-      <div class="space-y-1">
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-purple-400">Tim Detektif Digital OJK</span>
-        <h2 class="text-xl sm:text-2xl font-black text-white">
-          4 Asisten AI Otonom yang Bekerja 24 Jam Tanpa Henti
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-400">
-          Alih-alih mengirim puluhan auditor keliling ratusan pulau, OJK mengerahkan 4 agen cerdas khusus:
-        </p>
+
+    <!-- ============================================================== -->
+    <!-- BAGIAN 3: PETA ARSITEKTUR 4 AGEN OTONOM (NETWORK TOPOLOGY)     -->
+    <!-- ============================================================== -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs font-bold font-mono">3</span>
+          <h2 class="text-base sm:text-lg font-bold text-white">Peta Jaringan Multi-Agent: 4 Detektif Cerdas OJK</h2>
+        </div>
+        <span class="text-xs font-mono text-purple-400">Klik agen untuk melihat tugasnya</span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- 4 Agents Interactive Visual Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         
-        <!-- Agent 1 -->
-        <div class="p-4 rounded-2xl bg-slate-950 border border-sky-500/30 space-y-2">
-          <div class="w-9 h-9 rounded-xl bg-sky-950 text-sky-400 flex items-center justify-center text-lg">
+        <!-- Agent 1 Card -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-sky-500/40 space-y-3 relative group hover:border-sky-400 transition">
+          <div class="w-10 h-10 rounded-xl bg-sky-950 text-sky-400 flex items-center justify-center text-xl">
             🛰️
           </div>
-          <h3 class="text-sm font-bold text-white">1. Si Mata Elang</h3>
-          <span class="text-[10px] font-mono text-sky-400 block font-bold">Agen Satelit & Cuaca</span>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Memotret sawah dari antariksa. Mengetahui secara pasti apakah padinya benar-benar ditanam, sedang layu kekeringan, atau kebunnya fiktif (*bohong*).
-          </p>
+          <div>
+            <span class="text-[10px] font-mono text-sky-400 uppercase font-bold tracking-wider">Agen 1: Biofisik Sawah</span>
+            <h3 class="text-sm font-bold text-white mt-0.5">Sentinel Geospatial</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Memotret sawah dari orbit tiap 5 hari. Menghitung indeks hijau daun (NDVI) untuk memastikan apakah sawahnya nyata atau <strong>kebun fiktif</strong>.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-[11px] font-mono text-sky-400 flex items-center gap-1">
+            <span>Input: Poligon GPS Lahan</span>
+          </div>
         </div>
 
-        <!-- Agent 2 -->
-        <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-2">
-          <div class="w-9 h-9 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center text-lg">
+        <!-- Agent 2 Card -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-amber-500/40 space-y-3 relative group hover:border-amber-400 transition">
+          <div class="w-10 h-10 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center text-xl">
             🌾
           </div>
-          <h3 class="text-sm font-bold text-white">2. Si Ahli Pasar</h3>
-          <span class="text-[10px] font-mono text-amber-400 block font-bold">Agen Rantai Pasok</span>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Mengecek harga pangan di pasar dan pabrik penampung (*offtaker*). Mengetahui apakah hasil panen petani laku dijual atau dibeli dengan harga jatuh.
-          </p>
+          <div>
+            <span class="text-[10px] font-mono text-amber-400 uppercase font-bold tracking-wider">Agen 2: Rantai Pasok</span>
+            <h3 class="text-sm font-bold text-white mt-0.5">Offtaker & Pasar</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Memantau harga komoditas via API Bapanas & memverifikasi pembeli siaga. Memastikan hasil panen petani laku dengan harga menguntungkan.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-[11px] font-mono text-amber-400 flex items-center gap-1">
+            <span>Input: Harga Bapanas & E-Faktur</span>
+          </div>
         </div>
 
-        <!-- Agent 3 -->
-        <div class="p-4 rounded-2xl bg-slate-950 border border-rose-500/30 space-y-2">
-          <div class="w-9 h-9 rounded-xl bg-rose-950 text-rose-400 flex items-center justify-center text-lg">
+        <!-- Agent 3 Card -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-rose-500/40 space-y-3 relative group hover:border-rose-400 transition">
+          <div class="w-10 h-10 rounded-xl bg-rose-950 text-rose-400 flex items-center justify-center text-xl">
             🔍
           </div>
-          <h3 class="text-sm font-bold text-white">3. Si Detektif Rekening</h3>
-          <span class="text-[10px] font-mono text-rose-400 block font-bold">Agen Forensik Aliran Dana</span>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Melacak aliran uang di database pinjol. Membongkar trik licik saat uang lender baru diam-diam dipakai membayar utang macet proyek lama.
-          </p>
+          <div>
+            <span class="text-[10px] font-mono text-rose-400 uppercase font-bold tracking-wider">Agen 3: Forensik Kas</span>
+            <h3 class="text-sm font-bold text-white mt-0.5">FDC Graph Auditor</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Memindai rekening escrow di Fintech Data Center. Membongkar trik licik jika uang lender baru disedot untuk menutup kredit macet proyek lama.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-[11px] font-mono text-rose-400 flex items-center gap-1">
+            <span>Input: Log Transaksi Escrow FDC</span>
+          </div>
         </div>
 
-        <!-- Agent 4 -->
-        <div class="p-4 rounded-2xl bg-slate-950 border border-purple-500/30 space-y-2">
-          <div class="w-9 h-9 rounded-xl bg-purple-950 text-purple-400 flex items-center justify-center text-lg">
+        <!-- Agent 4 Card -->
+        <div class="p-5 rounded-2xl bg-slate-900/90 border border-purple-500/40 space-y-3 relative group hover:border-purple-400 transition">
+          <div class="w-10 h-10 rounded-xl bg-purple-950 text-purple-400 flex items-center justify-center text-xl">
             ⚖️
           </div>
-          <h3 class="text-sm font-bold text-white">4. Si Jaksa Pengawas</h3>
-          <span class="text-[10px] font-mono text-purple-400 block font-bold">Agen Tindakan Regulasi</span>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Menggabungkan semua bukti dan otomatis mengetik draf surat peringatan pembinaan OJK sesuai pasal hukum untuk disahkan pimpinan.
-          </p>
+          <div>
+            <span class="text-[10px] font-mono text-purple-400 uppercase font-bold tracking-wider">Agen 4: Regulasi OJK</span>
+            <h3 class="text-sm font-bold text-white mt-0.5">Supervisory Copilot</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Menggabungkan bukti ketiga agen di atas dan otomatis menyusun draf Surat Peringatan OJK sesuai POJK No. 40 Tahun 2024 bagi pimpinan.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-[11px] font-mono text-purple-400 flex items-center gap-1">
+            <span>Output: Draf Surat Sanksi OJK</span>
+          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Executive Conclusion Card -->
-    <section class="p-6 sm:p-8 rounded-3xl bg-gradient-to-tr from-sky-950/60 via-slate-900 to-purple-950/40 border border-slate-700 text-center space-y-3">
-      <h3 class="text-lg sm:text-xl font-bold text-white">
-        Kesimpulan untuk Pemimpin & Pengambil Keputusan:
-      </h3>
-      <p class="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-        Inovasi ini tidak meminta OJK mengeluarkan triliunan rupiah untuk meluncurkan satelit baru. Seluruh data satelit (Sentinel-2) gratis disediakan oleh lembaga antariksa dunia. Yang dibangun OJK adalah <strong>kecerdasan otonom (SupTech)</strong> yang menghubungkan titik koordinat sawah dengan perlindungan konsumen keuangan Indonesia.
-      </p>
-      <div class="pt-2">
-        <a href="./index.html" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs px-5 py-2.5 rounded-xl transition shadow-lg shadow-sky-500/20">
-          <span>Uji Coba Prototipe Interaktif (Klik di Sini)</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
+
+    <!-- ============================================================== -->
+    <!-- BAGIAN 4: POHON KEPUTUSAN PENGAWAS (INTERACTIVE DECISION TREE) -->
+    <!-- ============================================================== -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold font-mono">4</span>
+          <h2 class="text-base sm:text-lg font-bold text-white">Pohon Keputusan OJK: Bagaimana Sanksi Dipilih Secara Otomatis?</h2>
+        </div>
+        <span class="text-xs font-mono text-slate-400">POJK 40/2024 Rulebase</span>
+      </div>
+
+      <!-- Visual Decision Tree Card Box -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        
+        <!-- Step A: Input -->
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-mono font-bold">A</div>
+          <div class="text-xs font-bold text-white">Fintech Mendaftarkan Kampanye Pinjaman Baru di FDC (Fintech Data Center)</div>
+        </div>
+
+        <!-- Branching Visual Nodes -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          
+          <!-- Branch 1: Lahan Sehat -->
+          <div class="p-4 rounded-2xl bg-slate-950 border border-emerald-900/60 space-y-2">
+            <div class="flex items-center justify-between font-mono text-[11px]">
+              <span class="text-emerald-400 font-bold">1. Evaluasi Satelit</span>
+              <span class="text-emerald-400">NDVI &gt; 0.6</span>
+            </div>
+            <p class="text-slate-300">Tanaman tumbuh hijau & sehat. Curah hujan normal.</p>
+            <div class="pt-2 border-t border-slate-800 text-[11px] text-emerald-400 font-bold">
+              &rarr; KEPUTUSAN: Pinjaman Berjalan Normal
+            </div>
+          </div>
+
+          <!-- Branch 2: Gagal Panen Murni -->
+          <div class="p-4 rounded-2xl bg-slate-950 border border-amber-900/60 space-y-2">
+            <div class="flex items-center justify-between font-mono text-[11px]">
+              <span class="text-amber-400 font-bold">2. Gagal Panen Murni</span>
+              <span class="text-amber-400">NDVI &lt; 0.2</span>
+            </div>
+            <p class="text-slate-300">Kekeringan parah, namun tidak ada pencairan pinjaman fiktif baru.</p>
+            <div class="pt-2 border-t border-slate-800 text-[11px] text-amber-400 font-bold">
+              &rarr; KEPUTUSAN: Wajib Tambah Cadangan 100%
+            </div>
+          </div>
+
+          <!-- Branch 3: Gagal Panen + Evergreening Ponzi -->
+          <div class="p-4 rounded-2xl bg-slate-950 border border-rose-900/80 space-y-2 shadow-lg shadow-rose-950">
+            <div class="flex items-center justify-between font-mono text-[11px]">
+              <span class="text-rose-400 font-bold">3. Ponzi Terdeteksi</span>
+              <span class="text-rose-400 font-bold">CRITICAL</span>
+            </div>
+            <p class="text-slate-300">Tanaman mati + terdeteksi mutasi rekening gali lubang tutup utang.</p>
+            <div class="pt-2 border-t border-slate-800 text-[11px] text-rose-400 font-bold">
+              &rarr; KEPUTUSAN: Moratorium Total + Audit Khusus
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
+
+    <!-- Bottom Action CTA -->
+    <div class="text-center pt-4 pb-8 space-y-3">
+      <div class="text-xs text-slate-500 font-mono">
+        Siap untuk menguji langsung alur interaktifnya?
+      </div>
+      <div>
+        <a href="./index.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:brightness-110 text-slate-950 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition shadow-xl shadow-sky-500/20 active:scale-95">
+          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          <span>Buka Prototipe Interaktif SATRIA-Agri (3 Langkah Pengawasan)</span>
+        </a>
+      </div>
+    </div>
 
   </main>
 
-  <footer class="max-w-5xl mx-auto mt-12 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
-    <p>Project SATRIA-Agri • One-Pager Visualisasi Publik & Eksekutif • 2026</p>
+  <footer class="max-w-6xl mx-auto w-full pt-4 border-t border-slate-800/80 text-center text-xs text-slate-500">
+    <p>Project SATRIA-Agri • Infografis Alur Visual SupTech OJK • 2026</p>
   </footer>
 
   <script>
     lucide.createIcons();
+
+    // Toggle interactive flow between old and new
+    function switchFlow(mode) {
+      const oldView = document.getElementById('flowOldView');
+      const newView = document.getElementById('flowNewView');
+      const btnOld = document.getElementById('flowBtnOld');
+      const btnNew = document.getElementById('flowBtnNew');
+
+      if (mode === 'old') {
+        oldView.classList.remove('hidden');
+        newView.classList.add('hidden');
+        btnOld.className = "px-3.5 py-1.5 rounded-lg font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30 transition shadow";
+        btnNew.className = "px-3.5 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition";
+      } else {
+        oldView.classList.add('hidden');
+        newView.classList.remove('hidden');
+        btnOld.className = "px-3.5 py-1.5 rounded-lg font-bold text-slate-400 hover:text-white transition";
+        btnNew.className = "px-3.5 py-1.5 rounded-lg font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 transition shadow";
+      }
+    }
   </script>
 </body>
 </html>
