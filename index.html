@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SATRIA-Agri — OJK Autonomous SupTech & Synthetic TKB Sentinel</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Chart.js for live metrics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            ojk: {
+              navy: '#070D18',
+              surface: '#0F172A',
+              card: '#1E293B',
+              border: '#334155',
+              accent: '#38BDF8',
+              crimson: '#EF4444',
+              emerald: '#10B981',
+              amber: '#F59E0B',
+              purple: '#A855F7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #070D18;
+      color: #E2E8F0;
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.3);
+    }
+    .glow-red {
+      box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.35);
+    }
+    .glow-purple {
+      box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.35);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0F172A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    /* Radar scan effect */
+    @keyframes radarScan {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .radar-beam {
+      animation: radarScan 4s linear infinite;
+      transform-origin: center center;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col bg-ojk-navy select-none">
+
+  <!-- Top Navigation Bar -->
+  <header class="h-16 border-b border-ojk-border/70 bg-ojk-surface/90 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center space-x-4">
+      <!-- OJK Logo Emblem -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 via-rose-500 to-amber-500 flex items-center justify-center shadow-md shadow-red-500/20 font-black text-white text-base tracking-tighter">
+          OJK
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-base font-extrabold text-white tracking-wide">Project SATRIA-Agri</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30">
+              SUPTECH PROTOTYPE v1.0
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">
+            Surveillance & Automated TKB Resilience Intelligence Agents • Dep. Pengawasan Fintech OJK
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Badges: Real-time Status -->
+    <div class="hidden lg:flex items-center space-x-6 text-xs font-mono">
+      <div class="flex items-center space-x-2 bg-ojk-card/60 px-3 py-1.5 rounded-lg border border-ojk-border">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300">Sentinel-2 Orbit:</span>
+        <span class="text-sky-400 font-bold">10m Multispectral Ready</span>
+      </div>
+      <div class="flex items-center space-x-2 bg-ojk-card/60 px-3 py-1.5 rounded-lg border border-ojk-border">
+        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+        <span class="text-slate-300">4 Active Agents:</span>
+        <span class="text-purple-300 font-bold">Consensus Live</span>
+      </div>
+    </div>
+
+    <!-- Right Controls: Simulation Trigger -->
+    <div class="flex items-center space-x-3">
+      <button 
+        id="simShockBtn"
+        onclick="triggerElNinoShock()"
+        class="bg-gradient-to-r from-amber-500 to-rose-600 hover:brightness-110 text-white text-xs font-semibold px-4 py-2 rounded-xl flex items-center space-x-2 shadow-lg shadow-rose-900/30 transition active:scale-95"
+      >
+        <span>⚡</span>
+        <span>Simulasi Syok Iklim El Niño</span>
+      </button>
+
+      <button 
+        id="resetBtn"
+        onclick="resetState()"
+        class="bg-ojk-card hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-xl border border-ojk-border transition"
+      >
+        Reset Normal
+      </button>
+    </div>
+  </header>
+
+  <!-- Subheader Alert: The Core Problem Framing Highlight -->
+  <div class="bg-gradient-to-r from-red-950/40 via-amber-950/30 to-ojk-navy border-b border-red-900/40 px-6 py-2.5 text-xs flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center space-x-2 text-slate-300">
+      <span class="text-amber-400 text-sm">⚠️</span>
+      <span class="font-bold text-amber-300">Dilema Pengawasan OJK:</span>
+      <span class="text-slate-400">
+        Laporan keuangan PT Penyelenggara memenuhi ekuitas minimum (Rp 12,5 M), namun <strong>FL-TKB90 Aset Lapangan anjlok parah</strong> akibat kekeringan dan skema evergreening.
+      </span>
+    </div>
+    <div class="flex items-center space-x-3 text-[11px] font-mono">
+      <span class="text-slate-400">POJK 40/2024 Compliance:</span>
+      <span id="pojkBadge" class="text-amber-400 font-bold bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800">
+        WARNING: Anomali Lahan Fiktif & Gagal Panen
+      </span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="flex-1 p-6 space-y-6 max-w-[1750px] mx-auto w-full">
+
+    <!-- KPI Metric Cards: Membandingkan Pola Pikir Lama vs Paradigma Baru -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Metric 1: Pola Pikir Lama (Laporan Keuangan PT Penyelenggara) -->
+      <div class="bg-ojk-surface border border-ojk-border rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <span>KESEHATAN FINANSIAL PT</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800 font-mono text-[10px]">
+            Audit Kuartalan
+          </span>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-emerald-400 tracking-tight flex items-baseline gap-2">
+            Rp 14,80 M
+            <span class="text-xs font-normal text-slate-400">/ Min. Rp 12,5 M</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Ekuitas PT Penyelenggara memenuhi ketentuan POJK. Tampak <strong>sehat secara administratif</strong>.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ojk-border/50 flex items-center justify-between text-[11px] text-slate-500">
+          <span>Pola Pikir Konvensional</span>
+          <span class="text-emerald-400 font-bold">✓ LOLOS</span>
+        </div>
+      </div>
+
+      <!-- Metric 2: Reported TKB90 vs Forward-Looking Synthetic TKB (The Game Changer) -->
+      <div class="bg-ojk-surface border border-ojk-border rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between glow-red">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <span>TKB90: REPORTED VS SYNTHETIC</span>
+          <span class="px-2 py-0.5 rounded bg-red-950/60 text-red-400 border border-red-800 font-mono text-[10px]">
+            AI Ground-Truth
+          </span>
+        </div>
+        <div>
+          <div class="flex items-baseline gap-3">
+            <span class="text-xs line-through text-slate-500" title="Self-reported oleh fintech">97,4%</span>
+            <span id="syntheticTkbVal" class="text-3xl font-black text-rose-400 tracking-tight">
+              64,2%
+            </span>
+          </div>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="text-xs font-bold text-rose-400">GAP RISIKO: -33,2%</span>
+            <span class="text-[11px] text-slate-400">(Manipulasi Evergreening terdeteksi)</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ojk-border/50 flex items-center justify-between text-[11px]">
+          <span class="text-slate-400">Forward-Looking TKB:</span>
+          <span id="tkbStatusBadge" class="text-rose-400 font-bold">KRITIS (Waspada Default)</span>
+        </div>
+      </div>
+
+      <!-- Metric 3: Pemantauan Iklim & Satelit Lahan (Sentinel-2) -->
+      <div class="bg-ojk-surface border border-ojk-border rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <span>KESEHATAN CROP RIIL (NDVI)</span>
+          <span class="px-2 py-0.5 rounded bg-sky-950/60 text-sky-400 border border-sky-800 font-mono text-[10px]">
+            Copernicus Satelit
+          </span>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-sky-400 tracking-tight flex items-baseline gap-2">
+            <span id="ndviVal">0.24</span>
+            <span class="text-xs font-normal text-slate-400">/ Normal: 0.65+</span>
+          </div>
+          <p id="climateText" class="text-xs text-rose-300 mt-1">
+            Stres kekeringan parah: 28 hari tanpa hujan di Klaster Dompu & Subang.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ojk-border/50 flex items-center justify-between text-[11px] text-slate-400">
+          <span>Lahan Terdampak:</span>
+          <span id="hectareCount" class="text-amber-400 font-mono font-bold">1.450 Hektar</span>
+        </div>
+      </div>
+
+      <!-- Metric 4: Rekomendasi Sanksi OJK Otomatis -->
+      <div class="bg-ojk-surface border border-ojk-border rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <span>SUPERVISORY ACTIONS</span>
+          <span class="px-2 py-0.5 rounded bg-purple-950/60 text-purple-400 border border-purple-800 font-mono text-[10px]">
+            Agent 4 Auto-Draft
+          </span>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-purple-400 tracking-tight flex items-baseline gap-2">
+            2 Draf Sanksi
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Surat Pembinaan & Pembekuan Penyaluran Baru Klaster Dompu siap dieksekusi.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ojk-border/50 flex items-center justify-between text-[11px]">
+          <span class="text-slate-400">Action Type:</span>
+          <button onclick="scrollToLetter()" class="text-purple-400 hover:text-purple-300 font-bold underline">
+            Lihat Surat OJK &rarr;
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Main Workspace Split: Map & Multi-Agent Collaboration -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- Left / Middle: Geospatial Ground-Truth Sentinel & Crop Health Map (7 Cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <div class="bg-ojk-surface border border-ojk-border rounded-2xl p-5 flex flex-col">
+          <!-- Card Header -->
+          <div class="flex flex-wrap items-center justify-between pb-4 border-b border-ojk-border gap-3">
+            <div>
+              <h2 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🛰️ Sentinel-2 Remote Sensing Ground-Truth</span>
+                <span class="text-xs text-slate-400 font-normal">(Verifikasi Lahan Riil vs Laporan Fintech)</span>
+              </h2>
+              <p class="text-xs text-slate-400 mt-0.5">
+                Memverifikasi apakah lahan benar-benar ditanami padi/jagung atau berupa <strong>lahan fiktif (Ghost Farm)</strong>.
+              </p>
+            </div>
+
+            <!-- Spectral View Switcher -->
+            <div class="flex items-center space-x-1 bg-ojk-navy p-1 rounded-xl border border-ojk-border text-xs">
+              <button id="btnOptical" onclick="setLayer('optical')" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white transition">
+                Optik RGB
+              </button>
+              <button id="btnNdvi" onclick="setLayer('ndvi')" class="px-3 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-bold border border-sky-500/30 transition">
+                NDVI Vegetasi
+              </button>
+              <button id="btnMoisture" onclick="setLayer('moisture')" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white transition">
+                SAR Kelembapan
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Geospatial Visualizer (Canvas Simulation) -->
+          <div class="relative w-full h-[380px] bg-slate-950 rounded-xl mt-4 overflow-hidden border border-ojk-border/60">
+            
+            <!-- Simulated Satellite Imagery Canvas -->
+            <canvas id="satelliteCanvas" class="w-full h-full block cursor-crosshair"></canvas>
+
+            <!-- Overlay HUD: Selected Farm Polygon Inspector -->
+            <div class="absolute top-4 left-4 bg-ojk-navy/85 backdrop-blur border border-ojk-border rounded-xl p-3.5 max-w-xs text-xs space-y-2 pointer-events-none shadow-xl">
+              <div class="flex items-center justify-between border-b border-ojk-border pb-1.5 font-mono">
+                <span id="hudClusterName" class="text-sky-400 font-bold">KLASTER JAGUNG DOMPU-04</span>
+                <span id="hudRiskBadge" class="px-1.5 py-0.2 rounded bg-red-950 text-red-400 font-bold text-[10px]">KRITIS</span>
+              </div>
+              <div class="space-y-1 font-mono text-[11px]">
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Koordinat:</span>
+                  <span class="text-slate-200">-8.5321° S, 118.4629° E</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Luas Deklarasi:</span>
+                  <span class="text-slate-200">120 Hektar (18 Kelompok Tani)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Indeks NDVI:</span>
+                  <span id="hudNdvi" class="text-red-400 font-bold">0.18 (Gagal Tumbuh)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Status Panen:</span>
+                  <span class="text-red-400">Kekeringan Parah (-68% Yield)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Map Legend -->
+            <div class="absolute bottom-4 left-4 bg-ojk-navy/80 backdrop-blur px-3 py-2 rounded-lg border border-ojk-border text-[11px] font-mono flex items-center gap-4">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> NDVI Sehat (&gt;0.6)</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Stres Ringan (0.4-0.6)</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Gagal/Kering (&lt;0.3)</span>
+            </div>
+
+            <!-- Scanner Beam Simulation Overlay -->
+            <div class="absolute inset-0 pointer-events-none opacity-20 bg-gradient-to-b from-transparent via-sky-500/10 to-transparent"></div>
+          </div>
+
+          <!-- Farm Cluster Selection Strip -->
+          <div class="grid grid-cols-3 gap-3 mt-4">
+            <div onclick="selectCluster('dompu')" id="cardDompu" class="p-3 rounded-xl border border-red-500/40 bg-red-950/20 cursor-pointer hover:border-red-400 transition">
+              <div class="flex items-center justify-between text-xs font-bold text-white">
+                <span>Klaster Dompu (Jagung)</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-red-900/80 text-red-300">Default Risk 88%</span>
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1">120 Ha • El Niño Drought</div>
+            </div>
+
+            <div onclick="selectCluster('subang')" id="cardSubang" class="p-3 rounded-xl border border-ojk-border bg-ojk-card/40 cursor-pointer hover:border-sky-400 transition">
+              <div class="flex items-center justify-between text-xs font-bold text-white">
+                <span>Klaster Subang (Padi)</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-900/80 text-amber-300">Offtaker Delayed</span>
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1">85 Ha • Panen Tertahan</div>
+            </div>
+
+            <div onclick="selectCluster('banyuwangi')" id="cardBanyuwangi" class="p-3 rounded-xl border border-ojk-border bg-ojk-card/40 cursor-pointer hover:border-sky-400 transition">
+              <div class="flex items-center justify-between text-xs font-bold text-white">
+                <span>Banyuwangi (Cabai)</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-900/80 text-emerald-300">Normal 98%</span>
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1">45 Ha • Irigasi Stabil</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Phenology & Climate Deficit Chart -->
+        <div class="bg-ojk-surface border border-ojk-border rounded-2xl p-5">
+          <div class="flex items-center justify-between pb-3 border-b border-ojk-border mb-4">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>📈 Kurva Vegetasi Fenologi Riil vs Kalender Tanam Normal</span>
+              </h3>
+              <p class="text-xs text-slate-400">Deteksi anomali pertumbuhan 60 hari sebelum tanggal jatuh tempo pinjaman fintech.</p>
+            </div>
+            <span class="text-xs font-mono text-sky-400 bg-sky-950/60 px-2.5 py-1 rounded-lg border border-sky-800">
+              Sentinel-2 • 5-Day Revisit
+            </span>
+          </div>
+
+          <div class="h-[210px] w-full">
+            <canvas id="cropChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Autonomous Multi-Agent Command Center & Supervisory Action (5 Cols) -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- 4 Agents Status & Consensus Box -->
+        <div class="bg-ojk-surface border border-ojk-border rounded-2xl p-5">
+          <div class="flex items-center justify-between pb-3 border-b border-ojk-border mb-3">
+            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🤖 Multi-Agent Collaborative Reasoning Stream</span>
+            </h2>
+            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/80 px-2 py-0.5 rounded-full border border-purple-700">
+              AUTONOMOUS
+            </span>
+          </div>
+
+          <!-- The 4 Collaborative Agents -->
+          <div class="space-y-3" id="agentStream">
+
+            <!-- Agent 1: Sentinel Geospatial -->
+            <div class="p-3 rounded-xl bg-ojk-card/60 border border-sky-500/30 text-xs space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sky-400 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                  Agent 1: Sentinel-Crop & Climate
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Satelit Orbit #812</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                Anomali terdeteksi di koordinat Dompu. Indeks NDVI anjlok ke <strong>0.18</strong> (anomali -62% dari standar). Presipitasi CHIRPS mencatat 28 hari berturut-turut tanpa curah hujan signifikan.
+              </p>
+            </div>
+
+            <!-- Agent 2: Offtaker & Value Chain -->
+            <div class="p-3 rounded-xl bg-ojk-card/60 border border-amber-500/30 text-xs space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-amber-400 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                  Agent 2: Value-Chain & Offtaker
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Bapanas & e-Faktur</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                Harga jagung pipil turun 22% di pasar grosir NTB. Pembeli siaga (PT Agro Nusa) menunda konfirmasi purchase order senilai Rp 1,8 Miliar. Risiko gagal bayar offtaker: <strong>TINGGI</strong>.
+              </p>
+            </div>
+
+            <!-- Agent 3: Forensic TKB & Evergreening -->
+            <div class="p-3 rounded-xl bg-ojk-card/60 border border-rose-500/30 text-xs space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-rose-400 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+                  Agent 3: Forensic Portfolio Auditor
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">FDC Graph Scanner</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                Terdeteksi transaksi sirkular (Evergreening). Pinjaman kelompok tani Dompu yang macet ditutupi oleh pencairan dana baru Kampanye #4092 dari 340 lender ritel baru. <strong>FL-TKB90 disesuaikan menjadi 64,2%</strong>.
+              </p>
+            </div>
+
+            <!-- Agent 4: Supervisory Action & Copilot -->
+            <div class="p-3 rounded-xl bg-purple-950/30 border border-purple-500/40 text-xs space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-purple-300 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                  Agent 4: Supervisory Copilot (POJK 40/2024)
+                </span>
+                <span class="text-[10px] font-mono text-purple-300 font-bold">Action Ready</span>
+              </div>
+              <p class="text-slate-200 leading-relaxed">
+                Konsensus multi-agent tercapai. Pelanggaran Pasal 43 & 51 POJK No. 40 Tahun 2024 (Mitigasi risiko dan penyajian informasi TKB yang menyesatkan). Draf Surat Peringatan Pembinaan berhasil digenerasi.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Generated OJK Supervisory Action Document -->
+        <div id="supervisoryLetterSection" class="bg-ojk-surface border border-ojk-border rounded-2xl p-5 space-y-3">
+          <div class="flex items-center justify-between pb-3 border-b border-ojk-border">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>📜 Draf Resmi Surat Pembinaan OJK (Auto-Generated)</span>
+              </h3>
+              <p class="text-xs text-slate-400">Dasar: POJK No. 40 Tahun 2024 & POJK No. 10/POJK.05/2022</p>
+            </div>
+            <button 
+              onclick="copyLetter()" 
+              id="copyBtn"
+              class="text-xs bg-purple-600 hover:bg-purple-500 text-white font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1 transition"
+            >
+              <span>Salin Surat</span>
+            </button>
+          </div>
+
+          <!-- Formal Letter Preview Box -->
+          <div class="bg-slate-950 border border-ojk-border/70 rounded-xl p-4 text-[11px] font-mono leading-relaxed text-slate-300 max-h-[310px] overflow-y-auto space-y-2.5">
+            <div class="text-center font-bold text-white border-b border-slate-800 pb-2">
+              OTORITAS JASA KEUANGAN REPUBLIK INDONESIA<br>
+              DEPARTEMEN PENGAWASAN LEMBAGA JASA KEUANGAN LAINNYA
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>Nomor: S-142/NB.213/2026</span>
+              <span>Jakarta, 8 September 2026</span>
+            </div>
+            <div>
+              <strong>Kepada Yth.</strong><br>
+              Direksi PT Penyelenggara LPBBTI Pertanian<br>
+              di Tempat
+            </div>
+            <div class="text-amber-300 font-bold">
+              Perihal: Peringatan Tertulis & Perintah Tindakan Pengawasan atas Anomali Portofolio Klaster Dompu
+            </div>
+            <p>
+              Berdasarkan hasil pengawasan sistem terintegrasi <strong>Project SATRIA-Agri OJK</strong> per 8 September 2026, ditemukan hal-hal sebagai berikut:
+            </p>
+            <ol class="list-decimal pl-4 space-y-1 text-slate-300">
+              <li>
+                <strong>Anomali Biofisik Citra Satelit:</strong> Pemantauan multispektral Sentinel-2 pada koordinat (-8.5321°, 118.4629°) mencatat indeks NDVI 0.18 yang mengindikasikan 88% proyek pertanian mengalami kekeringan ekstrem tanpa mitigasi cadangan risiko.
+              </li>
+              <li>
+                <strong>Manipulasi Tingkat Keberhasilan Bayar:</strong> Penyelenggara melaporkan TKB90 sebesar 97,4%, namun verifikasi transaksi FDC mengidentifikasi restrukturisasi semu (*evergreening*) senilai Rp 1,84 Miliar.
+              </li>
+            </ol>
+            <div class="p-2.5 bg-red-950/40 border border-red-900/60 rounded text-red-300">
+              <strong>PERINTAH PENGAWASAN OJK:</strong><br>
+              1. Membekukan sementara penghimpunan dana baru (*moratorium*) untuk Klaster Pertanian Dompu.<br>
+              2. Wajib membentuk cadangan penyisihan risiko sebesar 100% dari nilai pinjaman terdampak paling lambat 7 hari kerja.
+            </div>
+            <div class="pt-2 text-right text-slate-400">
+              a.n. Dewan Komisioner Otoritas Jasa Keuangan<br>
+              <strong>Direktur Pengawasan Fintech LPBBTI</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Script Logic -->
+  <script>
+    let currentCluster = 'dompu';
+    let currentLayer = 'ndvi';
+    let isShock = false;
+    let cropChartInstance = null;
+
+    // Cluster Data Registry
+    const CLUSTERS = {
+      dompu: {
+        name: "KLASTER JAGUNG DOMPU-04",
+        coords: "-8.5321° S, 118.4629° E",
+        hectares: "120 Hektar",
+        risk: "KRITIS",
+        reportedTkb: "97,4%",
+        syntheticTkb: "64,2%",
+        ndvi: 0.18,
+        cropText: "Stres kekeringan parah: 28 hari tanpa hujan di Klaster Dompu.",
+        chartData: [0.12, 0.22, 0.35, 0.28, 0.20, 0.18] // declining
+      },
+      subang: {
+        name: "KLASTER PADI SUBANG-UTARA",
+        coords: "-6.3210° S, 107.7540° E",
+        hectares: "85 Hektar",
+        risk: "WASPADA",
+        reportedTkb: "98,1%",
+        syntheticTkb: "79,5%",
+        ndvi: 0.44,
+        cropText: "Vegetasi cukup, namun penyerapan offtaker terlambat 21 hari.",
+        chartData: [0.15, 0.30, 0.52, 0.60, 0.55, 0.44]
+      },
+      banyuwangi: {
+        name: "KLASTER CABAI BANYUWANGI-02",
+        coords: "-8.2192° S, 114.3692° E",
+        hectares: "45 Hektar",
+        risk: "AMAN",
+        reportedTkb: "99,0%",
+        syntheticTkb: "96,8%",
+        ndvi: 0.72,
+        cropText: "Kondisi tanaman optimal, irigasi stabil, offtaker lancar.",
+        chartData: [0.18, 0.38, 0.62, 0.75, 0.78, 0.72]
+      }
+    };
+
+    // Initialize Canvas Satellite Simulation
+    const canvas = document.getElementById('satelliteCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      drawSatelliteMap();
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    function drawSatelliteMap() {
+      if (!canvas.width || !canvas.height) return;
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // Clear
+      ctx.fillStyle = '#050a14';
+      ctx.fillRect(0, 0, w, h);
+
+      // Draw Grid Lines (Satellite Telemetry Grid)
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < w; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+      for (let y = 0; y < h; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+
+      // Draw Agricultural Field Parcels (Polygons)
+      const parcels = [
+        { x: w * 0.25, y: h * 0.3, size: 85, cluster: 'subang', ndvi: 0.44 },
+        { x: w * 0.55, y: h * 0.45, size: 120, cluster: 'dompu', ndvi: isShock ? 0.15 : 0.18 },
+        { x: w * 0.8, y: h * 0.25, size: 70, cluster: 'banyuwangi', ndvi: 0.72 },
+        { x: w * 0.35, y: h * 0.7, size: 90, cluster: 'other', ndvi: 0.58 },
+      ];
+
+      parcels.forEach((p) => {
+        ctx.beginPath();
+        // polygon shape
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x + p.size, p.y + 15);
+        ctx.lineTo(p.x + p.size * 0.9, p.y + p.size * 0.7);
+        ctx.lineTo(p.x - 20, p.y + p.size * 0.6);
+        ctx.closePath();
+
+        // Layer color styling
+        if (currentLayer === 'optical') {
+          ctx.fillStyle = p.ndvi > 0.5 ? 'rgba(34, 197, 94, 0.4)' : 'rgba(180, 140, 70, 0.5)';
+          ctx.strokeStyle = '#64748b';
+        } else if (currentLayer === 'ndvi') {
+          if (p.ndvi < 0.3) {
+            ctx.fillStyle = 'rgba(239, 68, 68, 0.55)'; // red for drought
+            ctx.strokeStyle = '#ef4444';
+          } else if (p.ndvi < 0.55) {
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.45)'; // amber
+            ctx.strokeStyle = '#f59e0b';
+          } else {
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.55)'; // lush green
+            ctx.strokeStyle = '#10b981';
+          }
+        } else {
+          // moisture
+          ctx.fillStyle = p.ndvi < 0.3 ? 'rgba(217, 119, 6, 0.3)' : 'rgba(56, 189, 248, 0.45)';
+          ctx.strokeStyle = '#38bdf8';
+        }
+
+        ctx.lineWidth = p.cluster === currentCluster ? 3 : 1;
+        ctx.fill();
+        ctx.stroke();
+
+        // Polygon Label
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '10px JetBrains Mono';
+        ctx.fillText(p.cluster.toUpperCase(), p.x + 10, p.y + 30);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '9px JetBrains Mono';
+        ctx.fillText(`NDVI: ${p.ndvi}`, p.x + 10, p.y + 44);
+
+        if (p.cluster === currentCluster) {
+          // Highlight Ring
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(p.x - 10, p.y - 10, p.size + 30, p.size + 20);
+        }
+      });
+    }
+
+    // Layer Switcher
+    function setLayer(layer) {
+      currentLayer = layer;
+      document.getElementById('btnOptical').className = layer === 'optical' ? 'px-3 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-bold border border-sky-500/30 transition' : 'px-3 py-1 rounded-lg text-slate-300 hover:text-white transition';
+      document.getElementById('btnNdvi').className = layer === 'ndvi' ? 'px-3 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-bold border border-sky-500/30 transition' : 'px-3 py-1 rounded-lg text-slate-300 hover:text-white transition';
+      document.getElementById('btnMoisture').className = layer === 'moisture' ? 'px-3 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-bold border border-sky-500/30 transition' : 'px-3 py-1 rounded-lg text-slate-300 hover:text-white transition';
+      drawSatelliteMap();
+    }
+
+    // Cluster Selection
+    function selectCluster(key) {
+      currentCluster = key;
+      const data = CLUSTERS[key];
+      
+      document.getElementById('hudClusterName').innerText = data.name;
+      document.getElementById('hudNdvi').innerText = `${data.ndvi} (${data.ndvi < 0.3 ? 'Gagal Tumbuh' : data.ndvi < 0.6 ? 'Stres Sedang' : 'Optimal'})`;
+      document.getElementById('hudRiskBadge').innerText = data.risk;
+      document.getElementById('hudRiskBadge').className = data.risk === 'KRITIS' ? 'px-1.5 py-0.2 rounded bg-red-950 text-red-400 font-bold text-[10px]' : data.risk === 'WASPADA' ? 'px-1.5 py-0.2 rounded bg-amber-950 text-amber-400 font-bold text-[10px]' : 'px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-400 font-bold text-[10px]';
+
+      document.getElementById('syntheticTkbVal').innerText = data.syntheticTkb;
+      document.getElementById('ndviVal').innerText = data.ndvi;
+      document.getElementById('climateText').innerText = data.cropText;
+
+      // Update Card borders
+      ['dompu', 'subang', 'banyuwangi'].forEach(id => {
+        const el = document.getElementById('card' + id.charAt(0).toUpperCase() + id.slice(1));
+        if (id === key) {
+          el.className = 'p-3 rounded-xl border border-sky-400 bg-sky-950/30 cursor-pointer shadow-md transition';
+        } else {
+          el.className = 'p-3 rounded-xl border border-ojk-border bg-ojk-card/40 cursor-pointer hover:border-sky-400 transition';
+        }
+      });
+
+      updateChart(data.chartData);
+      drawSatelliteMap();
+    }
+
+    // Chart.js Setup
+    function initChart() {
+      const ctx = document.getElementById('cropChart').getContext('2d');
+      cropChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['W1 (Tanam)', 'W3 (Vegetatif Awal)', 'W5 (Anakan)', 'W7 (Pembungaan)', 'W9 (Pengisian)', 'W11 (Menjelang Panen)'],
+          datasets: [
+            {
+              label: 'Kurva Normal Kalender Tanam',
+              data: [0.15, 0.30, 0.55, 0.72, 0.75, 0.68],
+              borderColor: '#10B981',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              fill: false,
+              tension: 0.3
+            },
+            {
+              label: 'NDVI Satelit Riil Lapangan (Project SATRIA)',
+              data: CLUSTERS.dompu.chartData,
+              borderColor: '#EF4444',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: '#cbd5e1', font: { family: 'Outfit', size: 11 } }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 1.0,
+              grid: { color: '#1e293b' },
+              ticks: { color: '#94a3b8' }
+            },
+            x: {
+              grid: { color: '#1e293b' },
+              ticks: { color: '#94a3b8', font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    function updateChart(realData) {
+      if (!cropChartInstance) return;
+      cropChartInstance.data.datasets[1].data = realData;
+      cropChartInstance.data.datasets[1].borderColor = realData[5] < 0.3 ? '#EF4444' : realData[5] < 0.6 ? '#F59E0B' : '#10B981';
+      cropChartInstance.data.datasets[1].backgroundColor = realData[5] < 0.3 ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)';
+      cropChartInstance.update();
+    }
+
+    // Trigger Simulation Shock
+    function triggerElNinoShock() {
+      isShock = true;
+      document.getElementById('syntheticTkbVal').innerText = "51,4%";
+      document.getElementById('ndviVal').innerText = "0.14";
+      document.getElementById('hectareCount').innerText = "2.840 Hektar";
+      document.getElementById('pojkBadge').innerText = "CRITICAL: Moratorium 3 Klaster Diperlukan";
+      document.getElementById('pojkBadge').className = "text-rose-400 font-bold bg-rose-950/80 px-2 py-0.5 rounded border border-rose-800 animate-pulse";
+      
+      CLUSTERS.dompu.chartData = [0.12, 0.20, 0.28, 0.22, 0.15, 0.14];
+      updateChart(CLUSTERS.dompu.chartData);
+      drawSatelliteMap();
+
+      alert("⚡ SIMULASI SYOK IKLIM AKTIF:\n\n1. Sentinel-2 mendeteksi indeks kekeringan meluas ke 2.840 Hektar.\n2. Agent 3 otomatis memotong proyeksi Forward-Looking TKB menjadi 51,4%.\n3. Agent 4 memperbarui draf sanksi OJK ke status 'Moratorium Total'");
+    }
+
+    function resetState() {
+      isShock = false;
+      selectCluster('dompu');
+      document.getElementById('pojkBadge').innerText = "WARNING: Anomali Lahan Fiktif & Gagal Panen";
+      document.getElementById('pojkBadge').className = "text-amber-400 font-bold bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800";
+      document.getElementById('hectareCount').innerText = "1.450 Hektar";
+      drawSatelliteMap();
+    }
+
+    function scrollToLetter() {
+      document.getElementById('supervisoryLetterSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyLetter() {
+      const text = document.getElementById('supervisoryLetterSection').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.innerText = "✓ Disalin!";
+        setTimeout(() => { btn.innerText = "Salin Surat"; }, 2000);
+      });
+    }
+
+    // Window onload init
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      initChart();
+      selectCluster('dompu');
+    });
+  </script>
+</body>
+</html>
